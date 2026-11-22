@@ -9,7 +9,7 @@ const emit = defineEmits(['theme'])
 const root = ref(null), deck = ref(null)
 // s = side (-1 left, +1 right), r = rank (how far from the centre it travels)
 const others = [{ s: -1, r: 3 }, { s: -1, r: 2 }, { s: -1, r: 1 }, { s: 1, r: 1 }, { s: 1, r: 2 }, { s: 1, r: 3 }]
-const battlefields = ['[Battlefield one]', '[Battlefield two]', '[Battlefield three]', '[Battlefield four]', '[Battlefield five]']
+const battlefields = ['Security Council', 'Human Rights Council', 'Disarmament & Security', 'Economic & Social Council', 'Environment Assembly']
 let ctx
 
 const rem = () => parseFloat(getComputedStyle(document.documentElement).fontSize)
@@ -95,31 +95,31 @@ onBeforeUnmount(() => ctx?.revert())
     <div class="sq" />
 
     <div class="side left">
-      <h2 class="display t">[Section title]</h2>
-      <p>[Two or three sentences introducing this character, place or collection.]</p>
+      <h2 class="display t">The committees</h2>
+      <p>Choose a committee, represent your assigned country and work with fellow delegates to address the questions shaping our world. Every room brings a different agenda and a new challenge.</p>
     </div>
 
     <div ref="deck" class="deck">
       <NotchCard v-for="(o, i) in others" :key="i" class="other" :data-s="o.s" :data-r="o.r" :style="{ zIndex: 4 - o.r }">
-        <img :src="`https://picsum.photos/seed/deck-${i + 1}/900/900`" alt="" />
+        <img :src="`https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80`" alt="" />
       </NotchCard>
 
       <!-- one two-sided card: front = notched image card (later the five cards), back = "Choose your battlefield" -->
       <div class="cardwrap">
         <figure class="face front">
           <div class="imgLayer">
-            <img src="https://picsum.photos/seed/showcase-card/900/900" alt="" />
-            <span class="tag"><i class="dot" />[Card label]</span>
+            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=85" alt="" />
+            <span class="tag"><i class="dot" />COMMITTEE DIRECTORY</span>
           </div>
           <div class="five">
             <NotchCard v-for="(b, i) in battlefields" :key="i" class="fc">
-              <img :src="`https://picsum.photos/seed/battle-${i + 1}/600/900`" alt="" />
+              <img :src="`https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80`" alt="" />
               <span class="lab"><i class="dot" />{{ b }}</span>
             </NotchCard>
           </div>
         </figure>
         <figure class="face back">
-          <img src="https://picsum.photos/seed/battlefield-bg/1920/1080" alt="" />
+          <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=85" alt="" />
           <div class="dim" />
           <h2 class="display bf-text bf1">Choose your</h2>
           <h2 class="display bf-text bf2">battlefield</h2>
@@ -128,10 +128,10 @@ onBeforeUnmount(() => ctx?.revert())
     </div>
 
     <div class="side right">
-      <p class="meta"><i class="dot" />[Detail one]</p>
-      <p class="meta"><i class="dot" />[Detail two]</p>
-      <p class="meta"><i class="dot" />[Detail three]</p>
-      <CornerButton theme="light">[Action]</CornerButton>
+      <p class="meta"><i class="dot" />Formal debate & negotiation</p>
+      <p class="meta"><i class="dot" />Research-backed resolutions</p>
+      <p class="meta"><i class="dot" />Diplomacy in every session</p>
+      <CornerButton theme="light">Explore committees</CornerButton>
     </div>
   </section>
 </template>
@@ -139,7 +139,7 @@ onBeforeUnmount(() => ctx?.revert())
 <style scoped>
 .show{position:relative;height:100vh;overflow:hidden;background:#fff;color:#000;
   display:grid;grid-template-columns:1fr auto 1fr;gap:6rem;align-items:center;padding:0 9rem}
-.sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#6f56c9;z-index:1}
+.sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#b59a58;z-index:1}
 .side{position:relative;z-index:2;display:flex;flex-direction:column;gap:2rem}
 .left{align-items:flex-start}.left p{max-width:32rem;margin:0}
 .right{align-items:flex-start;padding-left:2rem}
@@ -150,7 +150,7 @@ onBeforeUnmount(() => ctx?.revert())
 .deck > .other{position:absolute;inset:0;width:100%;height:100%}
 
 .cardwrap{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10;transform-style:preserve-3d;color:#fff}
-.face{position:absolute;inset:0;margin:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#6f56c9}
+.face{position:absolute;inset:0;margin:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#172a2b}
 .back{transform:rotateY(180deg);background:#111}
 .imgLayer,.five{position:absolute;inset:0}
 .imgLayer img,.back > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
