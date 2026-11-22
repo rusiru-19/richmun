@@ -32,7 +32,7 @@ const onLoaded = async () => {
 
 <template>
   <ResolutionGuard />
-  <Preloader @done="onLoaded" />
+  <Preloader v-if="!ready" @done.once="onLoaded" />
   <FrameHUD :sections="nav" :active="active" :theme="theme" @menu="menuOpen = true" @console="consoleOpen = true" />
   <MenuOverlay :open="menuOpen" :active="active" @close="menuOpen = false" @console="openConsole" />
   <ConsoleOverlay :open="consoleOpen" @close="consoleOpen = false" />
