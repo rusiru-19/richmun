@@ -22,7 +22,7 @@ defineEmits(['menu', 'console'])
       </nav>
     </header>
     <aside class="side">
-      <div class="logo">◢◣</div>
+      <div class="logo">RM</div>
       <div class="tools">
         <button class="audio" :class="{ off: muted }" aria-label="Toggle sound" @click="toggleAudio"><i v-for="n in 5" :key="n" /></button>
         <button aria-label="Console" @click="$emit('console')">&gt;_</button>
