@@ -10,6 +10,21 @@ const root = ref(null), deck = ref(null)
 // s = side (-1 left, +1 right), r = rank (how far from the centre it travels)
 const others = [{ s: -1, r: 3 }, { s: -1, r: 2 }, { s: -1, r: 1 }, { s: 1, r: 1 }, { s: 1, r: 2 }, { s: 1, r: 3 }]
 const battlefields = ['Security Council', 'Human Rights Council', 'Disarmament & Security', 'Economic & Social Council', 'Environment Assembly']
+const deckImages = [
+  'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80'
+]
+const battlefieldImages = [
+  'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80',
+  'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80'
+]
 let ctx
 
 const rem = () => parseFloat(getComputedStyle(document.documentElement).fontSize)
