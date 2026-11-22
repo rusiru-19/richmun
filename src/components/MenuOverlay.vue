@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { watch, nextTick } from 'vue'
 import gsap from 'gsap'
 import { scrollTo } from '../composables/useSmoothScroll'
 import { muted, toggleAudio } from '../composables/useAudio'
@@ -12,7 +12,7 @@ const items = [
   { id: 'hero', label: 'Conference' }, { id: 'showcase', label: 'Committees' }, { id: 'footer', label: 'Register' }
 ]
 const blobs = [[8, 20, 38], [14, 60, 44], [4, 85, 40], [22, 40, 46], [10, 5, 36], [26, 75, 42]]
-let tl, timer
+let tl
 
 watch(() => props.open, async (o) => {
   await nextTick(); tl?.kill()
@@ -34,7 +34,7 @@ watch(() => props.open, async (o) => {
 })
 const go = (id) => { emit('close'); setTimeout(() => scrollTo('#' + id), 500) }
 
-onBeforeUnmount(() => clearInterval(timer))
+
 </script>
 
 <template>
