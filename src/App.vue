@@ -9,6 +9,7 @@ import MenuOverlay from './components/MenuOverlay.vue'
 import ConsoleOverlay from './components/ConsoleOverlay.vue'
 import ResolutionGuard from './components/ResolutionGuard.vue'
 import HeroSection from './components/HeroSection.vue'
+import CardShowcase from './components/CardShowcase.vue'
 import StorySection from './components/StorySection.vue'
 import HudSection from './components/HudSection.vue'
 import CollectionSection from './components/CollectionSection.vue'
@@ -49,6 +50,7 @@ const onLoaded = async () => {
   <ConsoleOverlay :open="consoleOpen" @close="consoleOpen = false" />
   <main>
     <HeroSection :ready="ready" @theme="theme = $event" />
+    <CardShowcase />
     <StorySection />
     <HudSection />
     <CollectionSection />
