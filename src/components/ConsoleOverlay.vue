@@ -5,13 +5,13 @@ const props = defineProps({ open: Boolean })
 const emit = defineEmits(['close'])
 const root = ref(null), inp = ref(null), log = ref(null)
 const typed = ref(''), popup = ref(null)
-const out = ref(['> session opened', '> pick a command or type one'])
+const out = ref(['> RICHMUN DELEGATE INFORMATION SYSTEM', '> Welcome. Select a command to learn about the conference.'])
 // Replace with CMS-driven commands later.
 const commands = [
-  { cmd: 'about', text: '[Rich text for the "about" command.]' },
-  { cmd: 'factions', text: '[Rich text for the "factions" command.]' },
-  { cmd: 'world', text: '[Rich text for the "world" command.]' },
-  { cmd: 'secret', text: '[Hidden lore goes here.]' }
+  { cmd: 'about', text: 'RichMUN is a student-led Model United Nations conference. Delegates represent countries, research international issues, deliver speeches and negotiate draft resolutions.' },
+  { cmd: 'committees', text: 'Explore the Security Council, Human Rights Council, Disarmament and International Security, Economic and Social Council, and Environment Assembly.' },
+  { cmd: 'procedure', text: 'Committees follow formal Rules of Procedure. Delegates participate in moderated caucuses, unmoderated caucuses, motions, points and resolution drafting.' },
+  { cmd: 'register', text: 'Registration details, eligibility and key dates will be published by the RichMUN Secretariat. Follow official conference announcements for updates.' }
 ]
 const run = async (c) => {
   const cmd = c.trim().toLowerCase(); if (!cmd) return
