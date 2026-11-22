@@ -95,8 +95,8 @@ onBeforeUnmount(() => ctx?.revert())
     <div class="sq" />
 
     <div class="side left">
-      <h2 class="display t">[Section title]</h2>
-      <p>[Two or three sentences introducing this character, place or collection.]</p>
+      <h2 class="display t">WORD FROM SECRETARY GENERAL</h2>
+      <p>Sajana Hasaranga [president, RichMUN]</p>
     </div>
 
     <div ref="deck" class="deck">
@@ -108,7 +108,7 @@ onBeforeUnmount(() => ctx?.revert())
       <div class="cardwrap">
         <figure class="face front">
           <div class="imgLayer">
-            <img src="https://picsum.photos/seed/showcase-card/900/900" alt="" />
+            <img src="/sajji.png" alt="" />
             <span class="tag"><i class="dot" />[Card label]</span>
           </div>
           <div class="five">
@@ -139,7 +139,7 @@ onBeforeUnmount(() => ctx?.revert())
 <style scoped>
 .show{position:relative;height:100vh;overflow:hidden;background:#fff;color:#000;
   display:grid;grid-template-columns:1fr auto 1fr;gap:6rem;align-items:center;padding:0 9rem}
-.sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#6f56c9;z-index:1}
+.sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#968adf;z-index:1}
 .side{position:relative;z-index:2;display:flex;flex-direction:column;gap:2rem}
 .left{align-items:flex-start}.left p{max-width:32rem;margin:0}
 .right{align-items:flex-start;padding-left:2rem}
@@ -150,7 +150,7 @@ onBeforeUnmount(() => ctx?.revert())
 .deck > .other{position:absolute;inset:0;width:100%;height:100%}
 
 .cardwrap{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10;transform-style:preserve-3d;color:#fff}
-.face{position:absolute;inset:0;margin:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#6f56c9}
+.face{position:absolute;inset:0;margin:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#968adf}
 .back{transform:rotateY(180deg);background:#111}
 .imgLayer,.five{position:absolute;inset:0}
 .imgLayer img,.back > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}

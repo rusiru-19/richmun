@@ -92,17 +92,17 @@ watch(() => props.ready, (r) => {
 <template>
   <section id="hero" ref="root" class="hero" data-section data-theme="dark">
     <h1 class="display words">
-      <span class="m"><span class="w">Keep</span></span>
-      <span class="m"><span class="w">Protect</span></span>
-      <span class="m"><span class="w">Reimagine</span></span>
+      <span class="m"><span class="w">DEBATE</span></span>
+      <span class="m"><span class="w">DIPLOMACY.</span></span>
+      <span class="m"><span class="w">SUPREMACY</span></span>
     </h1>
     <div class="metas"><p class="meta desc">[Brand description — one or two sentences about your world.]</p></div>
     <p class="meta hint"><span class="dot" /><ScrambleText text="Scroll to explore" :reveal="false" /></p>
 
     <div class="next">
-      <h2 class="display t">[Story title]</h2>
-      <p class="b">[One sentence describing your world and what people do in it.]</p>
-      <p class="cap"><span class="dot" />Watch trailer</p>
+      <h2 class="display t">RichMUN'27</h2>
+        <p class="b">Word about us</p><br>
+      <p class="b">Founded on Richmond College’s enduring legacy of excellence and leadership, RichMUN provides a dynamic platform for students to step into the shoes of international diplomats. Through rigorous debate, policy drafting, and high-stakes negotiation, delegates confront pressing global challenges—from international security and climate policy to human rights and economic development.  </p>
     </div>
 
     <div class="card">
@@ -135,7 +135,7 @@ watch(() => props.ready, (r) => {
 </template>
 
 <style scoped>
-.hero{position:relative;height:100vh;overflow:hidden;background:#000;color:#000}
+.hero{position:relative;height:100vh;overflow:hidden;background:#ffffff;color:#000}
 
 .words{position:absolute;left:9rem;bottom:15rem;z-index:3;font-size:19rem;color:#fff}
 .m{display:block;overflow:hidden}.w{display:block}
