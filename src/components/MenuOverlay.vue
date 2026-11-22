@@ -73,9 +73,9 @@ const go = (id) => { emit('close'); setTimeout(() => scrollTo('#' + id), 500) }
 
 <style scoped>
 .menu{position:fixed;inset:0;z-index:80;display:none}
-.under{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,.7))}
+.under{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,15,.78),rgba(5,5,15,.48))}
 .goo{position:absolute;inset:0;filter:url(#goo);pointer-events:none;overflow:hidden}
-.blob{position:absolute;border-radius:50%;background:#fff;transform:translate(-50%,-50%)}
+.blob{position:absolute;border-radius:50%;background:rgba(111,70,220,.72);transform:translate(-50%,-50%)}
 .panel{position:absolute;left:1.2rem;top:1.2rem;bottom:1.2rem;width:60rem;background:#000;border-radius:2.4rem;
   display:grid;grid-template-rows:1fr auto auto;overflow:hidden}
 .nav{padding:3rem 3rem 2rem;display:flex;flex-direction:column;justify-content:center}
