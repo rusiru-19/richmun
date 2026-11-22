@@ -92,27 +92,27 @@ watch(() => props.ready, (r) => {
 <template>
   <section id="hero" ref="root" class="hero" data-section data-theme="dark">
     <h1 class="display words">
-      <span class="m"><span class="w">Keep</span></span>
-      <span class="m"><span class="w">Protect</span></span>
-      <span class="m"><span class="w">Reimagine</span></span>
+      <span class="m"><span class="w">Debate.</span></span>
+      <span class="m"><span class="w">Negotiate.</span></span>
+      <span class="m"><span class="w">Change.</span></span>
     </h1>
-    <div class="metas"><p class="meta desc">[Brand description — one or two sentences about your world.]</p></div>
+    <div class="metas"><p class="meta desc">A gathering of young diplomats, thinkers and changemakers. Represent a nation, defend your position and turn difficult conversations into meaningful resolutions.</p></div>
     <p class="meta hint"><span class="dot" /><ScrambleText text="Scroll to explore" :reveal="false" /></p>
 
     <div class="next">
-      <h2 class="display t">[Story title]</h2>
-      <p class="b">[One sentence describing your world and what people do in it.]</p>
-      <p class="cap"><span class="dot" />Watch trailer</p>
+      <h2 class="display t">A WORLD OF<br>DIFFERENT VOICES</h2>
+      <p class="b">RichMUN brings students together to debate global issues, negotiate across perspectives and discover the work behind international diplomacy.</p>
+      <p class="cap"><span class="dot" />Discover RichMUN</p>
     </div>
 
     <div class="card">
       <figure class="face front">
-        <img src="https://picsum.photos/seed/ruin-sky/1920/1080" alt="" />
+        <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=85" alt="" />
         <div class="shade" />
-        <figcaption class="tag"><span class="dot" />[Card label]</figcaption>
+        <figcaption class="tag"><span class="dot" />PILTOVER / THE COUNCIL</figcaption>
       </figure>
       <figure class="face back">
-        <img src="https://picsum.photos/seed/next-world/1920/1080" alt="" />
+        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=2000&q=85" alt="" />
         <div class="dim" />
         <!-- procedural ridges as mid / near planes: swap for cut-out PNGs of your own art -->
         <svg class="mid" viewBox="0 0 1600 400" preserveAspectRatio="none">
@@ -121,8 +121,8 @@ watch(() => props.ready, (r) => {
         <svg class="near" viewBox="0 0 1600 400" preserveAspectRatio="none">
           <path d="M0 400V250Q220 170 420 240T820 200T1200 250T1600 210V400Z" fill="#050408" /></svg>
         <div class="title">
-          <h2 class="display bt">[Next section title]</h2>
-          <p class="bc"><span class="dot" />[Short caption for the next section]</p>
+          <h2 class="display bt">THE WORLD<br>IS LISTENING</h2>
+          <p class="bc"><span class="dot" />One chamber. Many perspectives. A future shaped by dialogue.</p>
         </div>
       </figure>
     </div>
