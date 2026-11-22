@@ -135,7 +135,7 @@ watch(() => props.ready, (r) => {
 </template>
 
 <style scoped>
-.hero{position:relative;height:100vh;overflow:hidden;background:#0b1016;color:#e8e3d8}
+.hero{position:relative;height:100vh;overflow:hidden;background:transparent;color:#e8e3d8}
 
 .words{position:absolute;left:9rem;bottom:15rem;z-index:3;font-size:19rem;color:#fff}
 .m{display:block;overflow:hidden}.w{display:block}
