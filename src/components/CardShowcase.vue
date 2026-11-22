@@ -116,7 +116,7 @@ onBeforeUnmount(() => ctx?.revert())
 
     <div ref="deck" class="deck">
       <NotchCard v-for="(o, i) in others" :key="i" class="other" :data-s="o.s" :data-r="o.r" :style="{ zIndex: 4 - o.r }">
-        <img :src="`https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80`" alt="" />
+        <img :src="deckImages[i]" alt="" />
       </NotchCard>
 
       <!-- one two-sided card: front = notched image card (later the five cards), back = "Choose your battlefield" -->
@@ -128,7 +128,7 @@ onBeforeUnmount(() => ctx?.revert())
           </div>
           <div class="five">
             <NotchCard v-for="(b, i) in battlefields" :key="i" class="fc">
-              <img :src="`https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80`" alt="" />
+              <img :src="battlefieldImages[i]" alt="" />
               <span class="lab"><i class="dot" />{{ b }}</span>
             </NotchCard>
           </div>
