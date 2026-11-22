@@ -4,6 +4,7 @@ import { useScale } from './composables/useScale'
 import { initSmoothScroll, ScrollTrigger } from './composables/useSmoothScroll'
 import { initHoverSounds } from './composables/useAudio'
 import Preloader from './components/Preloader.vue'
+import BackgroundCanvas from './components/BackgroundCanvas.vue'
 import FrameHUD from './components/FrameHUD.vue'
 import MenuOverlay from './components/MenuOverlay.vue'
 import ConsoleOverlay from './components/ConsoleOverlay.vue'
@@ -31,6 +32,7 @@ const onLoaded = async () => {
 </script>
 
 <template>
+  <BackgroundCanvas />
   <ResolutionGuard />
   <Preloader v-if="!ready" @done.once="onLoaded" />
   <FrameHUD :sections="nav" :active="active" :theme="theme" @menu="menuOpen = true" @console="consoleOpen = true" />
