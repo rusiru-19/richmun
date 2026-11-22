@@ -1,5 +1,5 @@
 <script setup>
-import { watch, nextTick } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import gsap from 'gsap'
 import { scrollTo } from '../composables/useSmoothScroll'
 import { muted, toggleAudio } from '../composables/useAudio'
