@@ -14,7 +14,7 @@ import FooterSection from './components/FooterSection.vue'
 
 const ready = ref(false), active = ref('hero'), theme = ref('dark')
 const menuOpen = ref(false), consoleOpen = ref(false)
-const nav = [{ id: 'hero', label: 'Home' }, { id: 'showcase', label: 'Showcase' }, { id: 'footer', label: 'Launch' }]
+const nav = [{ id: 'hero', label: 'Home' }, { id: 'showcase', label: 'Committees' }, { id: 'footer', label: 'Register' }]
 const openConsole = () => { menuOpen.value = false; consoleOpen.value = true }
 
 useScale()
