@@ -1,28 +1,14 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import CornerButton from './CornerButton.vue'
-import ScrambleText from './ScrambleText.vue'
+import { ref } from 'vue'
 
-const TARGET = null // Set this only when the official conference date is confirmed.
-const left = ref(0)
-let timer
-const tick = () => (left.value = TARGET ? Math.max(0, TARGET - Date.now()) : 0)
-onMounted(() => { tick(); timer = setInterval(tick, 1000) })
-onBeforeUnmount(() => clearInterval(timer))
 
-const pad = (n) => String(n).padStart(2, '0')
-const parts = computed(() => {
-  const s = Math.floor(left.value / 1000)
-  return [['Days', Math.floor(s / 86400)], ['Hours', Math.floor((s % 86400) / 3600)],
-          ['Minutes', Math.floor((s % 3600) / 60)], ['Seconds', s % 60]]
-})
 </script>
 
 <template>
   <footer id="footer" class="foot" data-section data-theme="dark">
     <p class="kick"><span class="dot" />THE NEXT SESSION STARTS WITH YOU</p>
     <div class="announcement">Conference dates, delegate allocations and registration information will be announced by the RichMUN Secretariat.</div>
-    <CornerButton>Stay informed</CornerButton>
+    <p class="action-note">Follow official RichMUN announcements for registration updates.</p>
 
     <div class="cols">
       <div class="col"><h4>Explore</h4><a href="#hero"><ScrambleText text="The conference" :reveal="false" /></a><a href="#showcase"><ScrambleText text="Committees" :reveal="false" /></a></div>
@@ -34,9 +20,9 @@ const parts = computed(() => {
 </template>
 
 <style scoped>
-.foot{background:#000;padding:14rem 9rem 4rem;display:flex;flex-direction:column;align-items:flex-start;gap:4rem}
+.foot{background:#0b1016;padding:14rem 9rem 4rem;display:flex;flex-direction:column;align-items:flex-start;gap:4rem}
 .kick{margin:0}
-.announcement{max-width:78rem;font-size:2.4rem;line-height:1.5;color:#e8e3d8;border-left:2px solid var(--lime);padding:1rem 0 1rem 2.4rem}
+.action-note{margin:0;opacity:.7;line-height:1.6}\n.announcement{max-width:78rem;font-size:2.4rem;line-height:1.5;color:#e8e3d8;border-left:2px solid var(--lime);padding:1rem 0 1rem 2.4rem}
 .unit{display:flex;flex-direction:column;gap:1.2rem}
 .unit b{font-size:27rem;font-variant-numeric:tabular-nums}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);width:100%;border:1px solid var(--hair-d);margin-top:4rem}
