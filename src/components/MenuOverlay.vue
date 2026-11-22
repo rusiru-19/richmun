@@ -7,9 +7,9 @@ import { muted, toggleAudio } from '../composables/useAudio'
 const props = defineProps({ open: Boolean, active: String })
 const emit = defineEmits(['close', 'console'])
 const root = ref(null)
-const online = ref(1284)
+
 const items = [
-  { id: 'hero', label: 'Home' }, { id: 'showcase', label: 'Showcase' }, { id: 'footer', label: 'Launch' }
+  { id: 'hero', label: 'Conference' }, { id: 'showcase', label: 'Committees' }, { id: 'footer', label: 'Register' }
 ]
 const blobs = [[8, 20, 38], [14, 60, 44], [4, 85, 40], [22, 40, 46], [10, 5, 36], [26, 75, 42]]
 let tl, timer
@@ -33,7 +33,7 @@ watch(() => props.open, async (o) => {
   }
 })
 const go = (id) => { emit('close'); setTimeout(() => scrollTo('#' + id), 500) }
-onMounted(() => { timer = setInterval(() => (online.value += Math.round(Math.random() * 4 - 2)), 2500) })
+
 onBeforeUnmount(() => clearInterval(timer))
 </script>
 
@@ -54,15 +54,15 @@ onBeforeUnmount(() => clearInterval(timer))
         </a>
       </nav>
       <div class="row">
-        <div><h4>Connect</h4><a href="#">Discord</a><a href="#">X / Twitter</a><a href="#">Instagram</a></div>
-        <div><h4>Buy on</h4><a href="#">[Marketplace]</a></div>
+        <div><h4>RichMUN</h4><a href="#hero" @click.prevent="go('hero')">The conference</a><a href="#showcase" @click.prevent="go('showcase')">Committees</a><a href="#footer" @click.prevent="go('footer')">Registration</a></div>
+        <div><h4>For delegates</h4><a href="#footer" @click.prevent="go('footer')">Join the conference ↗</a></div>
       </div>
-      <div class="misc"><span>© 2026</span><span><i class="dot" />{{ online }} online</span></div>
+      <div class="misc"><span>© 2026</span><span><i class="dot" />Delegates welcome</span></div>
     </aside>
 
     <div class="strip">
       <button aria-label="Close menu" @click="emit('close')">✕</button>
-      <b>◢◣</b>
+      <b>RM</b>
       <div>
         <button :class="{ off: muted }" aria-label="Toggle sound" @click="toggleAudio">♪</button>
         <button aria-label="Console" @click="emit('console')">&gt;_</button>
