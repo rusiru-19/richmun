@@ -152,14 +152,14 @@ onBeforeUnmount(() => ctx?.revert())
 </template>
 
 <style scoped>
-.show{position:relative;height:100vh;overflow:hidden;background:#d8d0bd;color:#101820;
+.show{position:relative;height:100vh;overflow:hidden;background:transparent;color:#e8e3d8;
   display:grid;grid-template-columns:1fr auto 1fr;gap:6rem;align-items:center;padding:0 9rem}
-.sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#b59a58;z-index:1}
+.sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:rgba(75,35,145,.12);z-index:1}
 .side{position:relative;z-index:2;display:flex;flex-direction:column;gap:2rem}
 .left{align-items:flex-start}.left p{max-width:32rem;margin:0}
 .right{align-items:flex-start;padding-left:2rem}
 .t{font-size:8.4rem}
-.meta{margin:0;padding-bottom:1rem;border-bottom:1px solid var(--hair-l);width:26rem}
+.meta{margin:0;padding-bottom:1rem;border-bottom:1px solid var(--hair-d);width:26rem}
 
 .deck{position:relative;z-index:3;width:44rem;height:46rem}
 .deck > .other{position:absolute;inset:0;width:100%;height:100%}
