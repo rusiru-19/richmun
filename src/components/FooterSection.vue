@@ -18,7 +18,7 @@ import ScrambleText from './ScrambleText.vue'
 </template>
 
 <style scoped>
-.foot{background:#0b1016;padding:14rem 9rem 4rem;display:flex;flex-direction:column;align-items:flex-start;gap:4rem}
+.foot{background:transparent;padding:14rem 9rem 4rem;display:flex;flex-direction:column;align-items:flex-start;gap:4rem}
 .kick{margin:0}
 .action-note{margin:0;opacity:.7;line-height:1.6}
 .announcement{max-width:78rem;font-size:2.4rem;line-height:1.5;color:#e8e3d8;border-left:2px solid var(--lime);padding:1rem 0 1rem 2.4rem}
