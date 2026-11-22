@@ -10,23 +10,11 @@ import ConsoleOverlay from './components/ConsoleOverlay.vue'
 import ResolutionGuard from './components/ResolutionGuard.vue'
 import HeroSection from './components/HeroSection.vue'
 import CardShowcase from './components/CardShowcase.vue'
-import StorySection from './components/StorySection.vue'
-import HudSection from './components/HudSection.vue'
-import CollectionSection from './components/CollectionSection.vue'
-import GallerySection from './components/GallerySection.vue'
-import TableauScene from './components/TableauScene.vue'
-import FinalCTA from './components/FinalCTA.vue'
 import FooterSection from './components/FooterSection.vue'
 
 const ready = ref(false), active = ref('hero'), theme = ref('dark')
 const menuOpen = ref(false), consoleOpen = ref(false)
-const nav = [{ id: 'hero', label: 'Home' }, { id: 'story', label: 'Story' }, { id: 'collection', label: 'Collection' }, { id: 'scene-1', label: 'World' }]
-const scenes = [
-  { id: 'scene-1', seed: 'dust-city', text: '[Scene one description — one line.]', caption: 'Location 01' },
-  { id: 'scene-2', seed: 'neon-alley', text: '[Scene two description — one line.]', caption: 'Location 02' },
-  { id: 'scene-3', seed: 'green-ruins', text: '[Scene three description — one line.]', caption: 'Location 03' }
-]
-const img = (s) => `https://picsum.photos/seed/${s}/1920/1080`
+const nav = [{ id: 'hero', label: 'Home' }, { id: 'showcase', label: 'Showcase' }, { id: 'footer', label: 'Launch' }]
 const openConsole = () => { menuOpen.value = false; consoleOpen.value = true }
 
 useScale()
@@ -50,14 +38,7 @@ const onLoaded = async () => {
   <ConsoleOverlay :open="consoleOpen" @close="consoleOpen = false" />
   <main>
     <HeroSection :ready="ready" @theme="theme = $event" />
-    <CardShowcase />
-    <StorySection />
-    <HudSection />
-    <CollectionSection />
-    <GallerySection />
-    <TableauScene v-for="(s, i) in scenes" :key="s.id" :id="s.id" :image="img(s.seed)"
-      :prev-image="img(i ? scenes[i - 1].seed : 'ruin-sky')" :text="s.text" :caption="s.caption" />
-    <FinalCTA />
+    <CardShowcase @theme="theme = $event" />
     <FooterSection />
   </main>
 </template>

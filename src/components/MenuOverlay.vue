@@ -9,8 +9,7 @@ const emit = defineEmits(['close', 'console'])
 const root = ref(null)
 const online = ref(1284)
 const items = [
-  { id: 'hero', label: 'Home' }, { id: 'story', label: 'Story' }, { id: 'collection', label: 'Collection' },
-  { id: 'gallery', label: 'Gallery' }, { id: 'scene-1', label: 'World' }, { id: 'cta', label: 'Join' }
+  { id: 'hero', label: 'Home' }, { id: 'showcase', label: 'Showcase' }, { id: 'footer', label: 'Launch' }
 ]
 const blobs = [[8, 20, 38], [14, 60, 44], [4, 85, 40], [22, 40, 46], [10, 5, 36], [26, 75, 42]]
 let tl, timer
