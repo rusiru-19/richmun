@@ -9,7 +9,7 @@ const emit = defineEmits(['theme'])
 const root = ref(null), deck = ref(null)
 // s = side (-1 left, +1 right), r = rank (how far from the centre it travels)
 const others = [{ s: -1, r: 3 }, { s: -1, r: 2 }, { s: -1, r: 1 }, { s: 1, r: 1 }, { s: 1, r: 2 }, { s: 1, r: 3 }]
-const battlefields = ['Security Council', 'Human Rights Council', 'Disarmament & Security', 'Economic & Social Council', 'Environment Assembly']
+const battlefields = ['Security Council', 'Human Rights Council', 'Disarmament & International Security', 'World Health Organization', 'Economic & Social Council']
 const deckImages = [
   'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80',
   'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=80',
