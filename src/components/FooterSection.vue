@@ -3,10 +3,10 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import CornerButton from './CornerButton.vue'
 import ScrambleText from './ScrambleText.vue'
 
-const TARGET = new Date('2027-03-01T00:00:00Z').getTime()   // ← set your launch date here
+const TARGET = null // Set this only when the official conference date is confirmed.
 const left = ref(0)
 let timer
-const tick = () => (left.value = Math.max(0, TARGET - Date.now()))
+const tick = () => (left.value = TARGET ? Math.max(0, TARGET - Date.now()) : 0)
 onMounted(() => { tick(); timer = setInterval(tick, 1000) })
 onBeforeUnmount(() => clearInterval(timer))
 
@@ -20,28 +20,23 @@ const parts = computed(() => {
 
 <template>
   <footer id="footer" class="foot" data-section data-theme="dark">
-    <p class="kick"><span class="dot" />[Launch label]</p>
-    <div class="count">
-      <div v-for="[label, v] in parts" :key="label" class="unit">
-        <b class="display">{{ pad(v) }}</b>
-        <span>{{ label }}</span>
-      </div>
-    </div>
-    <CornerButton>[Main action]</CornerButton>
+    <p class="kick"><span class="dot" />THE NEXT SESSION STARTS WITH YOU</p>
+    <div class="announcement">Conference dates, delegate allocations and registration information will be announced by the RichMUN Secretariat.</div>
+    <CornerButton>Stay informed</CornerButton>
 
     <div class="cols">
-      <div class="col"><h4>Discover more</h4><a href="#"><ScrambleText text="Story" :reveal="false" /></a><a href="#"><ScrambleText text="Journal" :reveal="false" /></a></div>
-      <div class="col"><h4>Join the conversation</h4><a href="#">Discord</a><a href="#">X / Twitter</a><a href="#">Instagram</a></div>
-      <div class="col"><h4>More details</h4><a href="#">hello@yourbrand.com</a></div>
+      <div class="col"><h4>Explore</h4><a href="#hero"><ScrambleText text="The conference" :reveal="false" /></a><a href="#showcase"><ScrambleText text="Committees" :reveal="false" /></a></div>
+      <div class="col"><h4>Delegate pathway</h4><a href="#showcase">Explore committees</a><a href="#footer">Registration updates</a></div>
+      <div class="col"><h4>Secretariat</h4><span>Official contact details will be published here.</span></div>
     </div>
-    <div class="bar"><span>EN</span><span>Privacy · Terms</span><span>© 2026</span></div>
+    <div class="bar"><span>RICHMUN</span><span>Model United Nations</span><span>© 2026</span></div>
   </footer>
 </template>
 
 <style scoped>
 .foot{background:#000;padding:14rem 9rem 4rem;display:flex;flex-direction:column;align-items:flex-start;gap:4rem}
 .kick{margin:0}
-.count{display:flex;gap:6rem;width:100%;justify-content:space-between}
+.announcement{max-width:78rem;font-size:2.4rem;line-height:1.5;color:#e8e3d8;border-left:2px solid var(--lime);padding:1rem 0 1rem 2.4rem}
 .unit{display:flex;flex-direction:column;gap:1.2rem}
 .unit b{font-size:27rem;font-variant-numeric:tabular-nums}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);width:100%;border:1px solid var(--hair-d);margin-top:4rem}
