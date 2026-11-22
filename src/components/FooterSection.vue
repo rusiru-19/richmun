@@ -1,7 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-
-
+import ScrambleText from './ScrambleText.vue'
 </script>
 
 <template>
