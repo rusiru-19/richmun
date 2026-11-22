@@ -66,7 +66,7 @@ watch(() => props.open, async (o) => {
 
 <style scoped>
 .con{position:fixed;inset:0;z-index:90;display:none}
-.backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72)}
+.backdrop{position:absolute;inset:0;background:rgba(0,0,0,.48)}
 .panel{position:absolute;left:7rem;bottom:3rem;width:52rem;aspect-ratio:522/479}
 .bgsvg{position:absolute;inset:0;width:100%;height:100%}
 .cont{position:absolute;inset:0;padding:1.6rem 1.8rem 1.6rem 2.4rem;display:flex;flex-direction:column;gap:1rem}
