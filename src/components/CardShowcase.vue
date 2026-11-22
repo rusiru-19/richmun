@@ -56,14 +56,14 @@ onMounted(() => {
     gsap.from('.side > *', { autoAlpha: 0, y: 30, duration: 0.8, stagger: 0.1, ease: 'power3.out',
       scrollTrigger: { trigger: root.value, start: 'top 55%' } })
 
-    let theme = 'light'
+    let theme = 'dark'
     const tl = gsap.timeline({
       onUpdate: applyShape,
       scrollTrigger: {
         trigger: root.value, start: 'top top', end: '+=1150%', pin: true, scrub: 0.6, invalidateOnRefresh: true,
         onRefresh: applyShape,
         onUpdate: (self) => {
-          const next = self.animation.time() > 1.3 ? 'dark' : 'light'
+          const next = 'dark'
           if (next !== theme) { theme = next; root.value.dataset.theme = next; emit('theme', next) }
         }
       }
