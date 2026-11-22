@@ -4,9 +4,10 @@ import gsap from 'gsap'
 const emit = defineEmits(['done'])
 const root = ref(null), bar = ref(null), pct = ref(0), path = ref('/assets/boot.sys')
 const files = ['/core/world.bin', '/tex/ground_01.ktx', '/audio/theme.ogg', '/fonts/display.woff2', '/scene/keep.glb', '/ui/hud.svg']
+let completed = false
 onMounted(() => {
   const s = { p: 0 }
-  gsap.timeline({ onComplete: () => emit('done') })
+  gsap.timeline({ onComplete: () => { if (completed) return; completed = true; emit('done') } })
     .to(s, { p: 100, duration: 2.6, ease: 'power2.inOut', onUpdate() {
       pct.value = Math.round(s.p)
       gsap.set(bar.value, { scaleX: s.p / 100 })
