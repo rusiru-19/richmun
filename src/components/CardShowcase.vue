@@ -137,7 +137,7 @@ onBeforeUnmount(() => ctx?.revert())
 </template>
 
 <style scoped>
-.show{position:relative;height:100vh;overflow:hidden;background:#fff;color:#000;
+.show{position:relative;height:100vh;overflow:hidden;background:#d8d0bd;color:#101820;
   display:grid;grid-template-columns:1fr auto 1fr;gap:6rem;align-items:center;padding:0 9rem}
 .sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#b59a58;z-index:1}
 .side{position:relative;z-index:2;display:flex;flex-direction:column;gap:2rem}
@@ -151,15 +151,15 @@ onBeforeUnmount(() => ctx?.revert())
 
 .cardwrap{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10;transform-style:preserve-3d;color:#fff}
 .face{position:absolute;inset:0;margin:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#172a2b}
-.back{transform:rotateY(180deg);background:#111}
+.back{transform:rotateY(180deg);background:#14252a}
 .imgLayer,.five{position:absolute;inset:0}
 .imgLayer img,.back > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .tag{position:absolute;left:5rem;top:2rem}
-.dim{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,10,50,.85),rgba(20,10,50,.35))}
+.dim{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,16,20,.9),rgba(7,16,20,.24))}
 .bf-text{position:absolute;left:9rem;font-size:19rem;white-space:nowrap}
 .bf1{bottom:30rem}.bf2{bottom:12rem}
 
-.five{background:#6f56c9;display:flex;align-items:center;justify-content:center;gap:2rem;padding:0 6rem}
+.five{background:#173b3c;display:flex;align-items:center;justify-content:center;gap:2rem;padding:0 6rem}
 .five > .fc{flex:0 0 26rem;height:44rem}
 .lab{position:absolute;left:1.6rem;bottom:1.6rem}
 
