@@ -44,7 +44,7 @@ onMounted(() => {
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const tm = self.animation.time()
-          const next = (tm > 0.9 && tm < 2.9) || tm > 6.9 ? 'light' : 'dark'
+          const next = 'dark'
           if (next !== theme) { theme = next; root.value.dataset.theme = next; emit('theme', next) }
         }
       }
