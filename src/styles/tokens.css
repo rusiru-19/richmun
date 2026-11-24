@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Archivo:wght@600;700;800&display=swap');
 :root{
-  --lime:#c0fb50; --lav:#c9b8ff; --peri:#8ca6ff; --track:#e1e1e1; --divider:#333;
+  --lime:#1F26AD; --lav:#c9b8ff; --peri:#8ca6ff; --track:#e1e1e1; --divider:#333;
   --hair-d:rgba(255,255,255,.18); --hair-l:rgba(0,0,0,.18);
   --display:'Archivo','Helvetica Neue',Arial,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box}
-html{font-size:10px}               /* overwritten by useScale() */
+html{font-size:10px;background:#000;overscroll-behavior:none}               /* overwritten by useScale() */
 body{margin:0;background:#000;color:#fff;font-family:var(--mono);font-size:1.1rem;font-weight:450;
-  text-transform:uppercase;letter-spacing:-.02em;font-feature-settings:"zero";user-select:none}
+  text-transform:uppercase;letter-spacing:-.02em;font-feature-settings:"zero";user-select:none;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;background:none;border:0;cursor:pointer;padding:0}
 a{color:inherit;text-decoration:none}

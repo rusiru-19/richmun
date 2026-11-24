@@ -15,5 +15,7 @@ export function initSmoothScroll() {
   gsap.ticker.lagSmoothing(0)
   return lenis
 }
+export const stopScroll = () => lenis?.stop()
+export const startScroll = () => lenis?.start()
 export const scrollTo = (target) => lenis?.scrollTo(target, { duration: 1.6 })
 export { gsap, ScrollTrigger }

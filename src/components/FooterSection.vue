@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import CornerButton from './CornerButton.vue'
 import ScrambleText from './ScrambleText.vue'
 
-const TARGET = new Date('2027-03-01T00:00:00Z').getTime()   // ← set your launch date here
+const TARGET = new Date('2027-02-20T00:00:00Z').getTime()   // ← set your launch date here
 const left = ref(0)
 let timer
 const tick = () => (left.value = Math.max(0, TARGET - Date.now()))

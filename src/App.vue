@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
 import { useScale } from './composables/useScale'
-import { initSmoothScroll, ScrollTrigger } from './composables/useSmoothScroll'
+import { initSmoothScroll, stopScroll, startScroll, ScrollTrigger } from './composables/useSmoothScroll'
 import { initHoverSounds } from './composables/useAudio'
 import Preloader from './components/Preloader.vue'
 import FrameHUD from './components/FrameHUD.vue'
@@ -18,15 +18,21 @@ const nav = [{ id: 'hero', label: 'Home' }, { id: 'showcase', label: 'Showcase' 
 const openConsole = () => { menuOpen.value = false; consoleOpen.value = true }
 
 useScale()
-onMounted(() => { initSmoothScroll(); initHoverSounds() })
+onMounted(() => {
+  history.scrollRestoration = 'manual'; window.scrollTo(0, 0)   // pinned sections break when the browser restores scroll
+  initSmoothScroll(); stopScroll()                               // no scrolling behind the preloader
+  initHoverSounds()
+})
 
 const onLoaded = async () => {
   ready.value = true
+  startScroll()
   await nextTick()
   document.querySelectorAll('[data-section]').forEach((el) =>
     ScrollTrigger.create({ trigger: el, start: 'top 50%', end: 'bottom 50%',
       onToggle: (s) => { if (s.isActive) { active.value = el.id; theme.value = el.dataset.theme } } }))
   ScrollTrigger.refresh()
+  document.fonts?.ready.then(() => ScrollTrigger.refresh())   // re-measure once the web fonts have loaded
 }
 </script>
 
