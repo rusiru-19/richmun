@@ -7,16 +7,16 @@ const emit = defineEmits(['theme'])
 const root = ref(null), deck = ref(null)
 // s = side (-1 left, +1 right), r = rank (how far from the centre it travels)
 const others = [
-  { s: -1, r: 5 },
-  { s: -1, r: 4 },
-  { s: -1, r: 3 },
-  { s: -1, r: 2 },
-  { s: -1, r: 1 },
-  { s: 1, r: 1 },
-  { s: 1, r: 2 },
-  { s: 1, r: 3 },
-  { s: 1, r: 4 },
-  { s: 1, r: 5 },
+  { s: -1, r: 5, x: -1, y: -14, rot: -8 },
+  { s: -1, r: 4, x: -11, y: -12, rot: -5 },
+  { s: -1, r: 3, x: -16, y: -3, rot: -4 },
+  { s: -1, r: 2, x: -15, y: 8, rot: -3 },
+  { s: -1, r: 1, x: -8, y: 15, rot: -2 },
+  { s: 1, r: 1, x: 8, y: 15, rot: 2 },
+  { s: 1, r: 2, x: 15, y: 8, rot: 3 },
+  { s: 1, r: 3, x: 16, y: -3, rot: 4 },
+  { s: 1, r: 4, x: 11, y: -12, rot: 5 },
+  { s: 1, r: 5, x: 1, y: -16, rot: 8 },
 ]
 const battlefields = ['[Battlefield one]', '[Battlefield two]', '[Battlefield three]', '[Battlefield four]', '[Battlefield five]']
 let ctx
@@ -47,7 +47,8 @@ onMounted(() => {
     let theme = 'light'
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: root.value, start: 'top top', end: '+=1150%', pin: true, scrub: 0.6, invalidateOnRefresh: true,
+        trigger: root.value, start: 'top top', end: '+=1150%', pin: true, pinSpacing: true,
+        scrub: 0.8, anticipatePin: 1, fastScrollEnd: true, invalidateOnRefresh: true,
         onUpdate: (self) => {
           const next = self.animation.time() > 1.3 ? 'dark' : 'light'
           if (next !== theme) { theme = next; root.value.dataset.theme = next; emit('theme', next) }
@@ -65,12 +66,14 @@ onMounted(() => {
     gsap.utils.toArray('.other').forEach((el) => {
   const s = +el.dataset.s
   const r = +el.dataset.r
+  const index = +el.dataset.index
+  const mobilePosition = others[index]
 
   tl.to(el, {
-    x: () => s * r * (mobile() ? 4.5 : 12) * rem(),
-    y: () => r * 0.7 * rem(),
-    rotation: s * r * 2.5,
-    scale: 0.72 - r * 0.025,
+    x: () => mobile() ? mobilePosition.x * rem() : s * r * 12 * rem(),
+    y: () => mobile() ? mobilePosition.y * rem() : r * 0.7 * rem(),
+    rotation: () => mobile() ? mobilePosition.rot : s * r * 2.5,
+    scale: () => mobile() ? 0.46 - (r * 0.012) : 0.72 - r * 0.025,
     ease: 'power2.out',
     duration: 1.8
   }, 1.6 + (r - 1) * 0.1)
@@ -119,7 +122,7 @@ onBeforeUnmount(() => ctx?.revert())
     </div>
 
     <div ref="deck" class="deck">
-      <div v-for="(o, i) in others" :key="i" class="other plain" :data-s="o.s" :data-r="o.r" :style="{ zIndex: 4 - o.r }">
+      <div v-for="(o, i) in others" :key="i" class="other plain" :data-s="o.s" :data-r="o.r" :data-index="i" :style="{ zIndex: 4 - o.r }">
         <img :src="`Semika.png`" alt="" />
       </div>
 
@@ -153,7 +156,7 @@ onBeforeUnmount(() => ctx?.revert())
 </template>
 
 <style scoped>
-.show{position:relative;height:100vh;overflow:hidden;background:#fff;color:#000;
+.show{position:relative;height:100vh;min-height:100svh;overflow:hidden;background:#fff;color:#000;
   display:grid;grid-template-columns:1fr auto 1fr;gap:6rem;align-items:center;padding:0 9rem}
 .sq{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;background:#0B1659;z-index:1}
 .side{position:relative;z-index:2;display:flex;flex-direction:column;gap:2rem}
@@ -221,8 +224,11 @@ onBeforeUnmount(() => ctx?.revert())
 @media(max-width:767px){
   .show{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;align-content:center;gap:3rem;padding:0 3rem}
   .deck{width:24rem;height:33.6rem}.t{font-size:5.6rem}.right{display:none}
-  .bf-text{left:3rem;font-size:7rem}.bf1{bottom:22rem}.bf2{bottom:14rem}
-  .five{flex-direction:column;gap:1rem;padding:0 3rem}.five > .fc{flex:none;width:100%;height:9rem}
+  .deck > .other{transform-origin:50% 50%;will-change:transform}
+  .bf-text{left:2.4rem;right:2.4rem;font-size:clamp(5.2rem, 13vw, 7rem);line-height:.9;white-space:normal;max-width:calc(100vw - 4.8rem)}
+  .bf1{bottom:22rem}.bf2{bottom:14rem}
+  .five{flex-direction:column;gap:1rem;padding:0 1.6rem;overflow:hidden}
+  .five > .fc{flex:0 0 auto;width:100%;height:9rem}
 }
 .quote {
   position: relative;
