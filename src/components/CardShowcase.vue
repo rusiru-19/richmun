@@ -35,6 +35,7 @@ onMounted(() => {
     gsap.set(card, { transformPerspective: 1800 })
     gsap.set('.sq', { xPercent: -50, yPercent: -50, scale: 0 })
     gsap.set('.other', { autoAlpha: 0, scale: 0.72 })
+    gsap.set('.spread-label', { autoAlpha: 0, y: 18 })
     gsap.set('.five', { autoAlpha: 0 })
 
     /* entrance, before the section pins */
@@ -61,6 +62,7 @@ onMounted(() => {
       .to(card, { ...small(0.72), ease: 'power2.inOut', duration: 1.1 }, 0.5)
       .fromTo(card, { rotate: -2.5 }, { rotate: 0, duration: 1.1, immediateRender: false }, 0.5)
       .to('.other', { autoAlpha: 1, duration: 0.1 }, 1.5)
+      .to('.spread-label', { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 1.75)
 
     /* 2. other cards spread to both sides, then fold back behind the main card */
     gsap.utils.toArray('.other').forEach((el) => {
@@ -92,6 +94,7 @@ onMounted(() => {
     duration: 0.1
   }, 5.35)
 })
+    tl.to('.spread-label', { autoAlpha: 0, y: -12, duration: 0.25 }, 5.15)
     tl.to(card, { ...small(0.8), ease: 'power2.out', duration: 0.6 }, 5.1)
 
     /* 3. the card flips (6.0 → 7.0) and its back side scales up into the next section (7.0 → 8.5) */
@@ -122,6 +125,7 @@ onBeforeUnmount(() => ctx?.revert())
     </div>
 
     <div ref="deck" class="deck">
+      <p class="spread-label">MEET YOUR EXCO</p>
       <div v-for="(o, i) in others" :key="i" class="other plain" :data-s="o.s" :data-r="o.r" :data-index="i" :style="{ zIndex: 4 - o.r }">
         <img :src="`Semika.png`" alt="" />
       </div>
@@ -166,6 +170,7 @@ onBeforeUnmount(() => ctx?.revert())
 .meta{margin:0;padding-bottom:1rem;border-bottom:1px solid var(--hair-l);width:26rem}
 
 .deck{position:relative;z-index:3;width:36rem;height:50.4rem}   /* 5:7, same ratio as your card image */
+.spread-label{position:absolute;z-index:20;top:-3.2rem;left:50%;transform:translateX(-50%);width:max-content;margin:0;color:#fff;font-size:1.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-align:center;white-space:nowrap;pointer-events:none;text-shadow:0 2px 18px rgba(0,0,0,.35)}
 .plain {
   position: relative;
   overflow: hidden;
@@ -224,6 +229,7 @@ onBeforeUnmount(() => ctx?.revert())
 @media(max-width:767px){
   .show{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;align-content:center;gap:3rem;padding:0 3rem}
   .deck{width:24rem;height:33.6rem}.t{font-size:5.6rem}.right{display:none}
+  .spread-label{top:-2.5rem;font-size:1.15rem;letter-spacing:.16em}
   .deck > .other{transform-origin:50% 50%;will-change:transform}
   .bf-text{left:2.4rem;right:2.4rem;font-size:clamp(5.2rem, 13vw, 7rem);line-height:.9;white-space:normal;max-width:calc(100vw - 4.8rem)}
   .bf1{bottom:22rem}.bf2{bottom:14rem}
