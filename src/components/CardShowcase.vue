@@ -229,7 +229,7 @@ onBeforeUnmount(() => ctx?.revert())
 @media(max-width:767px){
   .show{grid-template-columns:1fr;grid-template-rows:auto auto;justify-items:center;align-content:center;gap:3rem;padding:0 3rem}
   .deck{width:24rem;height:33.6rem}.t{font-size:5.6rem}.right{display:none}
-  .spread-label{top:-2.5rem;font-size:1.15rem;letter-spacing:.16em}
+  .spread-label{top:-15rem;font-size:1.15rem;letter-spacing:.16em}
   .deck > .other{transform-origin:50% 50%;will-change:transform}
   .bf-text{left:2.4rem;right:2.4rem;font-size:clamp(5.2rem, 13vw, 7rem);line-height:.9;white-space:normal;max-width:calc(100vw - 4.8rem)}
   .bf1{bottom:22rem}.bf2{bottom:14rem}
