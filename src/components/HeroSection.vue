@@ -29,7 +29,6 @@ const depthOf = (i) => +(0.15 + 0.85 * (i / (layers.length - 1))).toFixed(3)
 const graffiti = [
   { src: '/g1.png', layer: 'back',  x: -2, y: 2,  w: 26, r: 0,  drift: 30 },
   { src: '/g2.png', layer: 'front', x: 44, y: 18, w: 14, r: 4,  drift: 22 },
-  { src: '/g3.png', layer: 'front', x: 60, y: 40, w: 12, r: 0,  drift: 26 },
   { src: '/g4.png', layer: 'front', x: 20, y: 66, w: 18, r: -6, drift: 34 },
   { src: '/g5.png', layer: 'back',  x: -2, y: 50, w: 12, r: 0,  drift: 24 }
 ]
@@ -169,8 +168,11 @@ watch(() => props.ready, (r) => {
 
     <h1 class="display words">
       <span class="m"><span class="w">DEBATE</span></span>
-      <span class="m"><span class="w">DIPLOMACY.</span></span>
-      <span class="m redcolor"><span class="w">SUPREMACY</span></span>
+      <span class="m diplomacy-word"><span class="w">DIPLOMACY.</span></span>
+      <div class="gfx g3-overlay" data-drift="26" :style="gStyle({ x: 60, y: 40, w: 12, r: 0 })" aria-hidden="true">
+        <img class="gfx-in" src="/g3.png" alt="" />
+      </div>
+      <span class="m supremacy-word redcolor"><span class="w">SUPREMACY</span></span>
     </h1>
     <p class="meta hint"><span class="dot" /><ScrambleText text="Scroll to explore" :reveal="false" /></p>
 
@@ -226,7 +228,9 @@ watch(() => props.ready, (r) => {
 .hero{position:relative;height:100vh;overflow:hidden;background:#ffffff;color:#000}
 
 .words{position:absolute;left:9rem;bottom:15rem;z-index:3;font-size:19rem;color:#fff}
-.m{display:block;overflow:hidden}.w{display:block}
+.m{display:block;overflow:hidden;position:relative}.w{display:block}
+.diplomacy-word{z-index:1}.supremacy-word{z-index:3}
+.g3-overlay{position:fixed!important;z-index:2!important;pointer-events:none}
 .metas{position:absolute;left:9rem;bottom:6rem;z-index:3;color:#fff}
 .desc{max-width:42rem;margin:0}
 .hint{position:absolute;bottom:3.4rem;left:50%;transform:translateX(-50%);margin:0;z-index:3;color:#fff}
@@ -273,6 +277,7 @@ watch(() => props.ready, (r) => {
 
 @media(max-width:767px){
   .words{left:3rem;bottom:14rem;font-size:9.6rem}
+  .g3-overlay{width:19%!important;left:60%!important;top:40%!important}
   .metas{left:3rem;right:3rem;bottom:6rem}.hint{display:none}
   .t{left:3rem;top:10rem;font-size:6.4rem}
   .about{left:3rem;top:56rem;max-width:none;right:3rem}
