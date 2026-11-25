@@ -1,8 +1,12 @@
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrambleText from './ScrambleText.vue'
 import { cardPath } from '../composables/cardShape'
+
+// stops pinned sections from jumping when the phone's address bar hides / shows
+ScrollTrigger.config({ ignoreMobileResize: true })
 
 const props = defineProps({ ready: Boolean })
 const emit = defineEmits(['theme'])
@@ -16,6 +20,10 @@ const TITLE_ABOVE = 4          // title sits in front of this many layers (4 = b
 // depth 0.15 (far) … 1 (near): how much each layer moves
 const depthOf = (i) => +(0.15 + 0.85 * (i / (layers.length - 1))).toFixed(3)
 
+/* ── mobile switch (phones < 768px wide) ── */
+const isMobile = ref(window.innerWidth < 768)
+const onResize = () => { isMobile.value = window.innerWidth < 768 }
+
 /* ───────────────────────── GRAFFITI ─────────────────────────
    Files live in /public. Rename every `src` to your real file names.
    x / y  = position in % of the screen (top-left corner of the piece)
@@ -28,43 +36,69 @@ const depthOf = (i) => +(0.15 + 0.85 * (i / (layers.length - 1))).toFixed(3)
    Leaves together with the headline as you start to scroll. */
 const graffiti = [
   { src: '/g1.png', layer: 'back',  x: -2, y: 2,  w: 26, r: 0,  drift: 30 },
-  { src: '/g2.png', layer: 'front', x: 44, y: 18, w: 14, r: 4,  drift: 22 },
-  { src: '/g3.png', layer: 'front', x: 60, y: 40, w: 12, r: 0,  drift: 26 },
+  { src: '/g2.png', layer: 'front', x: 44, y: 10, w: 14, r: 4,  drift: 22 },
   { src: '/g4.png', layer: 'front', x: 20, y: 66, w: 18, r: -6, drift: 34 },
   { src: '/g5.png', layer: 'back',  x: -2, y: 50, w: 12, r: 0,  drift: 24 }
 ]
 const gBack = graffiti.filter((g) => g.layer === 'back')
 const gFront = graffiti.filter((g) => g.layer === 'front')
 
-/* SET 2 — on the RichMUN'27 screen (matches your screenshot).
+/* SET 2 — on the RichMUN'27 screen (desktop positions, matches your screenshot).
    Comes in as the card lands, leaves together with the RichMUN'27 text. */
 const graffitiNext = [
   { src: '/g1.png',  x: -2, y: 34, w: 14, r: 0, drift: 22 },   // red + blue streaks, left of the card
   { src: '/g2.png',  x: 39, y: 35, w: 10, r: 0, drift: 18 },   // red doodle at the card's top-right corner
   { src: '/g3.png',  x: 81, y: 45, w: 7,  r: 0, drift: 20 },   // lightning bolt, right
   { src: '/g4.png',  x: 43, y: 76, w: 9,  r: 0, drift: 18 },   // star, under the card
-  { src: '/g5.png', x: 4,  y: 78, w: 9,  r: 0, drift: 22 }    // red + blue streaks, bottom left
+  { src: '/g5.png',  x: 4,  y: 78, w: 9,  r: 0, drift: 22 }    // red + blue streaks, bottom left
 ]
+/* SET 2 on phones: the card fills the width, so the pieces move to its edges and to free space.
+   Card ≈ 8%–92% across, 34%–61% down. Same file order as above. */
+const graffitiNextMobile = [
+  { src: '/g1.png',  x: -4, y: 40, w: 16, r: 0, drift: 22 },   // streaks, bleeding off the left edge of the card
+  { src: '/g2.png',  x: 76, y: 27, w: 14, r: 0, drift: 18 },   // doodle, above the card's top-right corner
+  { src: '/g3.png',  x: 87, y: 50, w: 9,  r: 0, drift: 20 },   // lightning bolt, right edge
+  { src: '/g4.png',  x: 7,  y: 20, w: 12, r: 0, drift: 18 },   // star, in the gap under the title
+  { src: '/g5.png',  x: 68, y: 88, w: 22, r: 0, drift: 16 }    // streaks, bottom right corner
+]
+const nextSet = computed(() => (isMobile.value ? graffitiNextMobile : graffitiNext))
 
-const gStyle = (g) => ({ left: g.x + '%', top: g.y + '%', width: g.w + '%', rotate: g.r + 'deg' })
+// phones get slightly bigger pieces so they stay visible
+const gStyle = (g) => ({
+  left: g.x + '%', top: g.y + '%', width: g.w * (isMobile.value ? 1.35 : 1) + '%', rotate: g.r + 'deg'
+})
 
-const COLS = 36, ROWS = 9
-// stencil cells for the dissolve; row 4 becomes the horizontal dashes
-const cells = Array.from({ length: COLS * ROWS }, (_, i) => ({ h: Math.floor(i / COLS) === 4 }))
+// dissolve grid: fewer, wider bars on phones (computed once on load)
+const m0 = window.innerWidth < 768
+const COLS = m0 ? 18 : 36, ROWS = m0 ? 13 : 9
+// stencil cells for the dissolve; the middle row becomes the horizontal dashes
+const cells = Array.from({ length: COLS * ROWS }, (_, i) => ({ h: Math.floor(i / COLS) === Math.floor(ROWS / 2) }))
 
 const rem = () => parseFloat(getComputedStyle(document.documentElement).fontSize)
 const mobile = () => window.innerWidth < 768
 
+/* Phone layout of the small card: its size follows the screen height so the text underneath always fits.
+   The card's bottom edge is passed to CSS (--card-bottom) so the text block sits right below it. */
+const phoneCard = () => {
+  const vh = window.innerHeight / rem()
+  const top = Math.min(30, Math.max(24, vh * 0.34))
+  const h = Math.min(24, Math.max(15, vh * 0.27))
+  root.value?.style.setProperty('--card-bottom', top + h + 'rem')
+  return { top, h }
+}
+
 // where the small card sits inside the next section
-const slot = () => ({
-  left: (mobile() ? 3 : 9) * rem(),
-  top: (mobile() ? 32 : 36) * rem(),
-  width: (mobile() ? window.innerWidth / rem() - 6 : 60) * rem(),
-  height: (mobile() ? 20 : 34) * rem()
-})
+const slot = () => {
+  if (mobile()) {
+    const { top, h } = phoneCard()
+    return { left: 3 * rem(), top: top * rem(), width: window.innerWidth - 6 * rem(), height: h * rem() }
+  }
+  return { left: 9 * rem(), top: 36 * rem(), width: 60 * rem(), height: 34 * rem() }
+}
 const full = () => ({ left: 0, top: 0, width: window.innerWidth, height: window.innerHeight })
 
 onMounted(() => {
+  window.addEventListener('resize', onResize)
   ctx = gsap.context(() => {
     const card = root.value.querySelector('.card')
     const faces = root.value.querySelectorAll('.face')
@@ -76,12 +110,13 @@ onMounted(() => {
     gsap.set(card, { transformPerspective: 1800 })
 
     /* Graffiti: slow endless drift for BOTH sets. Independent of scroll.
-       Bigger duration = slower motion. */
+       Bigger duration = slower motion. Half the distance on phones. */
+    const reach = () => (mobile() ? 0.5 : 1)
     gsap.utils.toArray('.gfx').forEach((el, i) => {
       const d = +el.dataset.drift
       gsap.to(el, {
-        x: () => gsap.utils.random(-d, d),
-        y: () => gsap.utils.random(-d, d),
+        x: () => gsap.utils.random(-d, d) * reach(),
+        y: () => gsap.utils.random(-d, d) * reach(),
         rotation: () => gsap.utils.random(-3, 3),
         duration: gsap.utils.random(6, 9),
         ease: 'sine.inOut',
@@ -145,7 +180,10 @@ onMounted(() => {
     applyShape()
   }, root.value)
 })
-onBeforeUnmount(() => ctx?.revert())
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', onResize)
+  ctx?.revert()
+})
 
 watch(() => props.ready, (r) => {
   if (!r) return
@@ -169,8 +207,11 @@ watch(() => props.ready, (r) => {
 
     <h1 class="display words">
       <span class="m"><span class="w">DEBATE</span></span>
-      <span class="m"><span class="w">DIPLOMACY.</span></span>
-      <span class="m redcolor"><span class="w">SUPREMACY</span></span>
+      <span class="m diplomacy-word"><span class="w">DIPLOMACY.</span></span>
+      <div class="gfx g3-overlay" data-drift="26" :style="gStyle({ x: 80, y: 40, w: 12, r: 0 })" aria-hidden="true">
+        <img class="gfx-in" src="/g3.png" alt="" />
+      </div>
+      <span class="m supremacy-word redcolor"><span class="w">SUPREMACY</span></span>
     </h1>
     <p class="meta hint"><span class="dot" /><ScrambleText text="Scroll to explore" :reveal="false" /></p>
 
@@ -210,12 +251,13 @@ watch(() => props.ready, (r) => {
 
     <!-- SET 2: graffiti on the RichMUN'27 screen, over the card (z-index 4) -->
     <div class="gfx2-layer" aria-hidden="true">
-      <div v-for="(g, i) in graffitiNext" :key="'n' + i" class="gfx" :data-drift="g.drift" :style="gStyle(g)">
+      <div v-for="(g, i) in nextSet" :key="'n' + i" class="gfx" :data-drift="g.drift" :style="gStyle(g)">
         <img class="gfx2-in" :src="g.src" alt="" />
       </div>
     </div>
 
-    <div class="dis" aria-hidden="true">
+    <div class="dis" aria-hidden="true"
+      :style="{ gridTemplateColumns: `repeat(${COLS}, 1fr)`, gridTemplateRows: `repeat(${ROWS}, 1fr)` }">
       <span v-for="(c, i) in cells" :key="i" class="cell" :class="c.h ? 'h' : 'v'"><i /></span>
     </div>
     <div class="fill" />
@@ -223,10 +265,13 @@ watch(() => props.ready, (r) => {
 </template>
 
 <style scoped>
-.hero{position:relative;height:100vh;overflow:hidden;background:#ffffff;color:#000}
+/* svh = the screen height with the phone's address bar showing, so nothing is cut off at the bottom */
+.hero{position:relative;height:100vh;height:100svh;overflow:hidden;background:#ffffff;color:#000}
 
 .words{position:absolute;left:9rem;bottom:15rem;z-index:3;font-size:19rem;color:#fff}
-.m{display:block;overflow:hidden}.w{display:block}
+.m{display:block;overflow:hidden;position:relative}.w{display:block}
+.diplomacy-word{z-index:1}.supremacy-word{z-index:3}
+.g3-overlay{position:fixed!important;z-index:2!important;pointer-events:none}
 .metas{position:absolute;left:9rem;bottom:6rem;z-index:3;color:#fff}
 .desc{max-width:42rem;margin:0}
 .hint{position:absolute;bottom:3.4rem;left:50%;transform:translateX(-50%);margin:0;z-index:3;color:#fff}
@@ -271,14 +316,26 @@ watch(() => props.ready, (r) => {
 .gfx{position:absolute;will-change:transform}
 .gfx-in,.gfx2-in{display:block;width:100%;height:auto;opacity:0}   /* hidden until their entrance animation runs */
 
+/* ───────────── phones ─────────────
+   Sizes use vw so the long words always fit on one line:
+   "DIPLOMACY." ≈ 5.8em wide, so 13.5vw keeps it inside the screen. */
 @media(max-width:767px){
-  .words{left:3rem;bottom:14rem;font-size:9.6rem}
-  .metas{left:3rem;right:3rem;bottom:6rem}.hint{display:none}
-  .t{left:3rem;top:10rem;font-size:6.4rem}
-  .about{left:3rem;top:56rem;max-width:none;right:3rem}
-  .logo{right:3rem;top:10rem;width:7rem}
-  .cap{left:3rem;top:53rem}
+  .words{left:3rem;bottom:calc(10rem + env(safe-area-inset-bottom, 0px));font-size:13.5vw}
+  /* lightning bolt: straddles the DIPLOMACY line (in front of it, behind SUPREMACY) */
+  .g3-overlay{width:20%!important;left:62%!important;top:calc(100vh - 26rem)!important;top:calc(100svh - 26rem)!important}
+  .hint{display:none}
+
+  .t{left:3rem;top:9rem;font-size:14vw}                          /* "RichMUN'27" ≈ 5.4em → fits one line */
+  .logo{right:3rem;top:17rem;width:5.5rem;min-width:0}           /* in the gap between title and card */
+  /* text sits directly under the card; --card-bottom is set from the card's real size in the script */
+  .about{left:3rem;right:3rem;max-width:none;top:calc(var(--card-bottom, 44rem) + 2rem)}
+  .line,.para{font-size:1rem}
+  .para{line-height:1.45}
   .tag{left:4.6rem;top:1.6rem}
-  .bt{left:3rem;bottom:12rem;font-size:7.4rem}.bc{left:3rem;bottom:7rem}
+
+  .bt{left:3rem;bottom:calc(12rem + env(safe-area-inset-bottom, 0px));font-size:7.4rem}
+  .bc{left:3rem;bottom:7rem}
 }
+/* very short phones: drop the long paragraph so nothing runs off the bottom */
+@media(max-width:767px) and (max-height:620px){ .para{display:none} }
 </style>
